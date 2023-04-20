@@ -44,6 +44,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Post          Post[]
+  Images        Images[]
 }
 
 model VerificationToken {
@@ -54,11 +55,30 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Cetagory {
+  id        Int     @id @default(autoincrement())
+  name      String
+  Post      Post[]
+}
+
 model Post {
   id        Int     @id @default(autoincrement())
   title     String
-  content   String?
+  content   String
   published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
+  views     Int     @default(0)
+  likes     Int     @default(0)
+  fImage    String
+  likedIds  String[]
+  categoryId Int
+  category  Cetagory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   authorId  String
+  author    User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Images {
+  id        Int     @id @default(autoincrement())
+  url       String
+  autherId  String
+  auther    User    @relation(fields: [autherId], references: [id], onDelete: Cascade)
 }
