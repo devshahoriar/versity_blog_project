@@ -7,6 +7,7 @@ import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
+import { AiFillCloseCircle } from 'react-icons/ai'
 import { FcHome } from 'react-icons/fc'
 
 const profile = ({
@@ -20,8 +21,34 @@ const profile = ({
   return (
     <div className="container">
       {editProfile && (
-        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-96 w-96 z-30 bg-slate-500">
-          Shuvo
+        <div className="fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-30 backdrop-blur-md flex justify-center items-center">
+          <div className="h-[400px] w-[600px] bg-black p-20 bg-opacity-30 rounded-md relative">
+            <button
+              onClick={() => setEditProfile((p) => !p)}
+              className="absolute top-8 right-10 text-2xl hover:opacity-70 active:scale-95"
+            >
+              <AiFillCloseCircle />
+            </button>
+            <div className="flex flex-col">
+              <input
+                type="text"
+                placeholder="Name"
+                className="input w-full max-w-xs input-bordered"
+              />
+              <input
+                type="text"
+                placeholder="Email"
+                className="input w-full max-w-xs input-bordered mt-5"
+              />
+              <input
+                accept="image/*"
+                multiple={false}
+                type="file"
+                className="file-input file-input-bordered w-full max-w-xs mt-5"
+              />
+              <button className="btn w-fit mt-5">Button</button>
+            </div>
+          </div>
         </div>
       )}
       <div className="h-[100vh] w-full flex justify-center items-center">

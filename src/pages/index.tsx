@@ -24,11 +24,13 @@ export default function Home() {
     <>
       <div className="container">
         <nav className="flex justify-between items-center my-4 mx-2">
-          <h1 className="text-2xl font-bold">
-            <Link href="/" className="flex items-center gap-2">
-              <SiSimplenote /> My Blog
-            </Link>
-          </h1>
+          <div className='flex items-center'>
+            <h1 className="text-2xl font-bold">
+              <Link href="/" className="flex items-center gap-2">
+                <SiSimplenote /> My Blog
+              </Link>
+            </h1>
+          </div>
           <div className="flex items-center flex-row">
             <AnimatePresence>
               {isMobile ? (
@@ -37,6 +39,9 @@ export default function Home() {
                 <DexktopNav />
               )}
             </AnimatePresence>
+            {
+              login && (<Link href='/addpost' className='bg-primary  text-white font-bold px-2 py-1 rounded-md' >Add Post</Link>)
+            }
             <Avater isLoged={login} />
             {isMobile && (
               <button
