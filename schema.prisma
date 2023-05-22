@@ -76,9 +76,3 @@ model Post {
   author    User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
-model Images {
-  id        Int     @id @default(autoincrement())
-  url       String
-  autherId  String
-  auther    User    @relation(fields: [autherId], references: [id], onDelete: Cascade)
-}
