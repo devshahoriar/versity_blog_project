@@ -7,9 +7,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const allUsers:any = await prisma.user.findMany()
-  console.log(allUsers);
   
+  console.log(req.body);
   
-  res.status(200).json(allUsers)
+  res.status(200).json({})
 }

@@ -1,11 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import isAuth from "@/lib/isAuth"
 import { NextPageContext } from "next"
+import { useSession } from "next-auth/react"
 import { useEffect, useRef, useState } from "react"
 
 /* eslint-disable @next/next/no-img-element */
 const addPost = () => {
   const [selectImage, setSelectImage] = useState<File>()
+  const [inTitle, setInTitlw] = useState('')
+  const [body, setBody] = useState('')
+  const { data, status } = useSession()
+  
+  
   const imageRef = useRef<HTMLImageElement>(null)
 
   useEffect(()=>{
@@ -17,6 +23,11 @@ const addPost = () => {
     reader.readAsDataURL(selectImage)
   },[selectImage])
 
+  const _hendelSubmit = () => {
+    console.log('clicked');
+    
+  }
+
   return (
     <div className="container">
       <div className="flex flex-col items-center mt-10">
@@ -27,8 +38,9 @@ const addPost = () => {
           onChange={(e) => setSelectImage(e.target.files[0] as File)}
           multiple={false}
         />
+        <input placeholder="Post title" className="min-w-[500px] mt-5"/>
         <textarea placeholder="Your post....." className="min-h-[200px] min-w-[500px] mt-5"/>
-        <button className="btn mt-5">Add Post</button>
+        <button className="btn mt-5" onClick={() => _hendelSubmit()}>Add Post</button>
       </div>
     </div>
   )
@@ -44,6 +56,10 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
         permanent: true,
       },
     }
+  }
+
+  return {
+    props: {}
   }
 
   
