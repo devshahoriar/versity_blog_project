@@ -20,6 +20,7 @@
     "daisyui": "^2.51.3",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
+    "formidable": "^2.1.1",
     "framer-motion": "^10.3.1",
     "next": "13.1.6",
     "next-auth": "^4.20.1",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",
+    "@types/formidable": "^2.0.6",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "prisma": "^4.11.0",
