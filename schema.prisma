@@ -68,7 +68,7 @@ model Post {
   published Boolean @default(false)
   views     Int     @default(0)
   likes     Int     @default(0)
-  fImage    String
+  image    String
   likedIds  String[]
   categoryId Int
   category  Cetagory @relation(fields: [categoryId], references: [id], onDelete: Cascade)

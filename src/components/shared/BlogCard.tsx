@@ -23,7 +23,7 @@ const BlogCard = ({ width }: { width: string }) => {
                   width === 'two' ? 'md:h-80' : 'md:h-44'
                 }`}
                 src={
-                  `https://source.unsplash.com/random?` +
+                  `https://source.unsplash.com/random/?productivity,city` +
                   type[Math.floor(Math.random() * type.length)]
                 }
                 alt="Shoes"
