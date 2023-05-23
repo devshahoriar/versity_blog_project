@@ -7,6 +7,8 @@ const register = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(405).json({ error: 'only post' })
     return
   }
+  console.log(req.body);
+  
   const { email, name, password } = req.body
   try {
     const hashPassword = await bcrypt.hash(password, 10)
@@ -29,6 +31,8 @@ const register = async (req: NextApiRequest, res: NextApiResponse) => {
       })
     return
   } catch (error) {
+    console.log(error);
+    
     res.status(409).json({ error: 'This email may be already registered.' })
     return
   }

@@ -1,37 +1,24 @@
-import formidable from "formidable";
-import fs from "fs";
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import prisma from '@/lib/db'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-export const config = {
-  api: {
-    bodyParser: false
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const { imageUrl, text, title, user } = req.body
+  try {
+    const post = await prisma.post.create({
+      data: {
+        image: imageUrl,
+        content: text,
+        title: title,
+        authorId: user,
+      },
+    })
+    res.status(200).json({ result: 'post created' })
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({ result: 'error' })
   }
-};
-
-const post = async (req, res) => {
-  const form = new formidable.IncomingForm();
-  form.parse(req, async function (err, fields, files) {
-    // await saveFile(files.file);
-    console.log(files, fields);
-    
-    return res.status(201).send("");
-  });
-};
-
-const saveFile = async (file) => {
-  const data = fs.readFileSync(file.path);
-  fs.writeFileSync(`./public/${file.name}`, data);
-  await fs.unlinkSync(file.path);
-  return;
-};
-
-export default (req, res) => {
-  req.method === "POST"
-    ? post(req, res)
-    : req.method === "PUT"
-    ? console.log("PUT")
-    : req.method === "DELETE"
-    ? console.log("DELETE")
-    : req.method === "GET"
-    ? console.log("GET")
-    : res.status(404).send("");
-};
+}

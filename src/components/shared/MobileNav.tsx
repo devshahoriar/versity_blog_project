@@ -10,12 +10,12 @@ import { motion } from 'framer-motion'
 import { signOut, useSession } from 'next-auth/react'
 
 export const cetItem: string[] = [
-  'Tec',
-  'Javascrip',
-  'php',
-  'python',
-  'Cse',
-  'Python',
+  // 'Tec',
+  // 'Javascrip',
+  // 'php',
+  // 'python',
+  // 'Cse',
+  // 'Python',
 ]
 
 const MobileNav = ({
