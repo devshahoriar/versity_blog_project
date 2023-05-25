@@ -1,15 +1,26 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-const BlogCard = ({ width }: { width: string }) => {
-  const type: String[] = ['laptop', 'man', 'woman', 'android', 'iphone', 'windows']
+const BlogCard = ({ width, item }: { width: string; item: any }) => {
+  const { title, content, image,id } = item
+ 
+  
+
+  const type: String[] = [
+    'laptop',
+    'man',
+    'woman',
+    'android',
+    'iphone',
+    'windows',
+  ]
   return (
     <div
       className={`${
         width === 'two' ? 'w-[95%]' : 'w-[45%] md:w-[30%]'
       } m-2 md:m-4 rounded-2xl overflow-hidden border-b border-primary-focus hover:shadow-lg hover:shadow-black bg-stone-800`}
     >
-      <Link href="blog/abc">
+      <Link href={`blog/${id}`}>
         <div className="card bg-base-100 shadow-xl rounded-none">
           <figure>
             <div
@@ -23,8 +34,7 @@ const BlogCard = ({ width }: { width: string }) => {
                   width === 'two' ? 'md:h-80' : 'md:h-44'
                 }`}
                 src={
-                  `https://source.unsplash.com/random/?productivity,city` +
-                  type[Math.floor(Math.random() * type.length)]
+                  image
                 }
                 alt="Shoes"
               />
@@ -40,21 +50,10 @@ const BlogCard = ({ width }: { width: string }) => {
                 width === 'two' ? 'md:text-3xl' : 'md:text-lg'
               } font-bold line-clamp-2`}
             >
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum ipsum a magnam amet tenetur quam voluptatem expedita porro, laudantium asperiores.
+              {title}
             </h2>
             <p className="line-clamp-3">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Exercitationem totam alias soluta doloribus odit magnam excepturi!
-              Ipsam placeat tempora aliquid laboriosam cupiditate rerum sed
-              soluta exercitationem. Aut aperiam porro nulla, sint molestiae cum
-              repellendus sed rem. Quam harum optio quo nesciunt saepe,
-              voluptatibus, maxime unde sint ducimus, similique facilis
-              laudantium rerum laboriosam non eum deserunt omnis quasi explicabo
-              illum repellendus! Eveniet atque voluptatum nemo necessitatibus
-              enim doloribus sit earum quae modi. Veritatis vel cumque deleniti
-              voluptate ex. Consectetur enim id, qui ipsum nemo praesentium ad
-              iusto minima nihil maiores consequatur ratione. Nesciunt iusto
-              odit beatae! Labore rem inventore atque officia?
+              {content}
             </p>
           </div>
         </div>

@@ -3,15 +3,14 @@ import BlogCard from '@/components/shared/BlogCard'
 import DexktopNav from '@/components/shared/DexktopNav'
 import MobileNav from '@/components/shared/MobileNav'
 import useMediaQuery from '@/hooks/useMediaQuery'
+import axios from 'axios'
 import { AnimatePresence } from 'framer-motion'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AiOutlineAppstore, AiOutlineBorder } from 'react-icons/ai'
 import { FaBars } from 'react-icons/fa'
 import { SiSimplenote } from 'react-icons/si'
-
-/* eslint-disable react/no-unescaped-entities */
 
 export default function Home() {
   const isMobile = useMediaQuery('(max-width: 768px)')
@@ -19,12 +18,28 @@ export default function Home() {
   const [row, setRow] = useState('one')
   const { status } = useSession()
   const login = status === 'authenticated'
+  const [postes, setPosts] = useState<any[]>([])
+
+  useEffect(() => {
+    const fet = async () => {
+      console.log('fet');
+      
+      try {
+        const {data} = await axios.get('/api/getPost')
+        setPosts(data.posts)
+        console.log(postes)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fet()
+  }, [])
 
   return (
     <>
       <div className="container">
         <nav className="flex justify-between items-center my-4 mx-2">
-          <div className='flex items-center'>
+          <div className="flex items-center">
             <h1 className="text-2xl font-bold">
               <Link href="/" className="flex items-center gap-2">
                 <SiSimplenote /> My Blog
@@ -39,9 +54,14 @@ export default function Home() {
                 <DexktopNav />
               )}
             </AnimatePresence>
-            {
-              login && (<Link href='/addpost' className='bg-primary  text-white font-bold px-2 py-1 rounded-md' >Add Post</Link>)
-            }
+            {login && (
+              <Link
+                href="/addpost"
+                className="bg-primary  text-white font-bold px-2 py-1 rounded-md"
+              >
+                Add Post
+              </Link>
+            )}
             <Avater isLoged={login} />
             {isMobile && (
               <button
@@ -77,10 +97,9 @@ export default function Home() {
           </div>
 
           <div className="mt-4 flex flex-wrap justify-center mx-4">
-            {Array(10)
-              .fill(1)
+            {postes
               .map((t, i) => (
-                <BlogCard key={i} width={row} />
+                <BlogCard item={t}  key={i} width={row} />
               ))}
           </div>
         </div>
